@@ -11,15 +11,11 @@ describe("killSpaces", function () {
 describe("isVariableName", function () {
     it("является ли строка именем переменной", function () {
         assert.equal(isVariableName("A"), true);
-        assert.equal(isVariableName("G"), true);
         assert.equal(isVariableName("Z"), true);
         assert.equal(isVariableName("a"), false);
-        assert.equal(isVariableName("b"), false);
+        assert.equal(isVariableName("z"), false);
         assert.equal(isVariableName("5"), false);
-        assert.equal(isVariableName("45"), false);
-        assert.equal(isVariableName("AA"), false);
         assert.equal(isVariableName("Aa"), false);
-        assert.equal(isVariableName("aA"), false);
         assert.equal(isVariableName(" "), false);
         assert.equal(isVariableName("+"), false);
     });
@@ -32,9 +28,7 @@ describe("getOperationType", function () {
        assert.equal(getOperationType("A=B"), "VARIABLE_SET_VARIABLE");
        assert.equal(getOperationType("K=K"), "VARIABLE_SET_VARIABLE");
        assert.equal(getOperationType("X=5"), "VARIABLE_SET_NUMBER");
-       assert.equal(getOperationType("X=55"), "VARIABLE_SET_NUMBER");
        assert.equal(getOperationType("X=555"), "VARIABLE_SET_NUMBER");
-       assert.equal(getOperationType("X=-5"), "VARIABLE_SET_NUMBER");
        assert.equal(getOperationType("X=-55"), "VARIABLE_SET_NUMBER");
        assert.equal(getOperationType("X=0"), "VARIABLE_SET_NUMBER");
        assert.equal(getOperationType(""), "EMPTY");
@@ -70,7 +64,6 @@ describe("main", function() {
 
     it("попытка деления на ноль", function () {
         assert.equal(main("N=25;X=0;A=N/X;A;"), "ERROR");
-        assert.equal(main("N=-12;X=0;A=N/X;A;"), "ERROR");
         assert.equal(main("N=0;X=0;A=N/X;A;"), "ERROR");
     });
 
