@@ -1,5 +1,8 @@
 "use strict";
 
+import { main, killSpaces, isVariableName, getOperationType } from '../main.js';
+import assert from 'assert';
+
 describe("killSpaces", function () {
     it("убрать пробелы из функции", function () {
         assert.equal(killSpaces("hello my world"), "hellomyworld");
@@ -92,3 +95,4 @@ describe("main", function() {
         assert.equal(main("A=123;A=B;A;"), 0);
     });
 });
+

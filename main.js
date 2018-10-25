@@ -1,11 +1,13 @@
 "use strict";
 
+"use strict";
+
 /**
  * убрать из строки все пробелы
  * @param codeParam
  * @returns {string}
  */
-function killSpaces(codeParam) {
+export function killSpaces(codeParam) {
     return codeParam.toString().split(" ").join("");
 }
 
@@ -14,7 +16,7 @@ function killSpaces(codeParam) {
  * @param codeParam
  * @returns {string}
  */
-function killNextLineChar(codeParam) {
+export function killNextLineChar(codeParam) {
     return codeParam.toString().split("\n").join("");
 }
 
@@ -23,7 +25,7 @@ function killNextLineChar(codeParam) {
  * @param codeParam
  * @returns {string[]}
  */
-function getOperationsArray(codeParam) {
+export function getOperationsArray(codeParam) {
     return codeParam.toString().split(";");
 }
 
@@ -32,7 +34,7 @@ function getOperationsArray(codeParam) {
  * @param strParam
  * @returns {boolean}
  */
-function isVariableName(strParam) {
+export function isVariableName(strParam) {
     if(strParam.length !== 1) {
         return false;
     }
@@ -44,7 +46,7 @@ function isVariableName(strParam) {
  * @param charParam
  * @returns {boolean}
  */
-function isMath(charParam) {
+export function isMath(charParam) {
     if(charParam.toString() === "+") return true;
     if(charParam.toString() === "-") return true;
     if(charParam.toString() === "*") return true;
@@ -57,7 +59,7 @@ function isMath(charParam) {
  * @param operationString
  * @returns {string}
  */
-function getOperationType(operationString) {
+export function getOperationType(operationString) {
     if(operationString.length === 0) {
         return "EMPTY";
     }
@@ -110,7 +112,7 @@ function getOperationType(operationString) {
  * @param key
  * @param value
  */
-function setVariable(variables, key, value) {
+export function setVariable(variables, key, value) {
     variables[key.toString()] = parseInt(value.toString());
 }
 
@@ -120,7 +122,7 @@ function setVariable(variables, key, value) {
  * @param key
  * @returns {number}
  */
-function getVariable(variables, key) {
+export function getVariable(variables, key) {
     const value = variables[key.toString()];
     if(!value) {
         return 0;
@@ -133,7 +135,7 @@ function getVariable(variables, key) {
  * @param operationString
  * @param variables
  */
-function variableSetVariable(operationString, variables) {
+export function variableSetVariable(operationString, variables) {
     const value = getVariable(variables, operationString.charAt(2));
     setVariable(variables, operationString.charAt(0), value);
 }
@@ -143,7 +145,7 @@ function variableSetVariable(operationString, variables) {
  * @param operationString
  * @param variables
  */
-function variableSetNumber(operationString, variables) {
+export function variableSetNumber(operationString, variables) {
     const value = parseInt(operationString.split("=")[1]);
     setVariable(variables, operationString.charAt(0), value);
 }
@@ -154,7 +156,7 @@ function variableSetNumber(operationString, variables) {
  * @param variables
  * @returns {null}
  */
-function mathOperation(operationString, variables) {
+export function mathOperation(operationString, variables) {
     const key_1 = operationString.charAt(0);
     const key_2 = operationString.charAt(2);
     const key_3 = operationString.charAt(4);
@@ -196,7 +198,7 @@ function mathOperation(operationString, variables) {
  * @param operationsArray
  * @returns {number}
  */
-function visitAllOperations(operationsArray) {
+export function visitAllOperations(operationsArray) {
     const variables = {};
     for(let i = 0; i < operationsArray.length; i++) {
         const operationString = operationsArray[i].toString();
@@ -218,7 +220,7 @@ function visitAllOperations(operationsArray) {
  * @param code
  * @returns {*}
  */
-function main(code) {
+export function main(code) {
     let result = undefined;
     try {
         result = visitAllOperations(getOperationsArray(killNextLineChar(killSpaces(code.toString()))));
